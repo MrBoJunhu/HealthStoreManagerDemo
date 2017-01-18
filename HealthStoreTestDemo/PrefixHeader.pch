@@ -1,0 +1,33 @@
+//
+//  PrefixHeader.pch
+//  HealthStoreTestDemo
+//
+//  Created by BillBo on 17/1/18.
+//  Copyright © 2017年 BillBo. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#define weakify(x)autoreleasepool{} __weak typeof(x)weak##x=x;
+
+#define ENABLE_DEBUG
+
+#ifdef ENABLE_DEBUG
+
+#define DebugLog(format, args...) \
+NSLog(@"%s, line %d: " format "\n", \
+      __func__, __LINE__, ## args);
+
+#else
+
+#define DebugLog(format, args...) do {} while(0)
+
+#endif
+
+
+#import "Header.h"
+
+#import "ConfigurationHeader.h"
+
+#endif /* PrefixHeader_pch */

@@ -1,0 +1,13 @@
+[core]
+	excludesfile = /Users/BillBo/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = BillBo
+	email = 496081649@qq.com
+[commit]
+	template = /Users/BillBo/.stCommitMsg

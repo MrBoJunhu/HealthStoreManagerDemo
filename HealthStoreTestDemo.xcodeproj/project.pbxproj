@@ -466,8 +466,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HealthStoreTestDemo/HealthStoreTestDemo.entitlements;
 				DEVELOPMENT_TEAM = F8GY9XXT4N;
-				GCC_PREFIX_HEADER = /Users/BillBo/Desktop/HealthStoreTestDemo/HealthStoreTestDemo/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/BillBo/HealthStoreManagerDemo/HealthStoreTestDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = HealthStoreTestDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bill.bo.com.HealthStoreTestDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -480,8 +481,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HealthStoreTestDemo/HealthStoreTestDemo.entitlements;
 				DEVELOPMENT_TEAM = F8GY9XXT4N;
-				GCC_PREFIX_HEADER = /Users/BillBo/Desktop/HealthStoreTestDemo/HealthStoreTestDemo/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/BillBo/HealthStoreManagerDemo/HealthStoreTestDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = HealthStoreTestDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bill.bo.com.HealthStoreTestDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -557,6 +559,7 @@
 				A9B62C101E2F0F510089946A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A9B62C111E2F0F510089946A /* Build configuration list for PBXNativeTarget "HealthStoreTestDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -565,6 +568,7 @@
 				A9B62C131E2F0F510089946A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A9B62C141E2F0F510089946A /* Build configuration list for PBXNativeTarget "HealthStoreTestDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -573,6 +577,7 @@
 				A9B62C161E2F0F510089946A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

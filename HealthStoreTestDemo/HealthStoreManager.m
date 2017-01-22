@@ -278,7 +278,7 @@
     
     if (supportBool) {
         
-        remindMessage = @"请在「设置」>「隐私」>「健康」中,确保「莱聚+」的步数功能已开启，否则将无法读取步数";
+        remindMessage = @"请在「设置」>「隐私」>「健康」中,确保「莱聚+」的步数功能已开启或者「健康」中的今日步数已更新，否则将无法读取步数";
         
     }else{
         
@@ -286,7 +286,7 @@
         
     }
     
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Bill温馨提示" message:remindMessage preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:remindMessage preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
     

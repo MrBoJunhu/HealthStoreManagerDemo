@@ -8,9 +8,13 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *myTBV;
+
+@property (nonatomic, assign) NSInteger todaySteps;
+
+@property (nonatomic, strong) HealthStoreManager *storeManager;
 
 @end
 
@@ -19,12 +23,83 @@
 - (void)viewDidLoad {
    
     [super viewDidLoad];
+    
+    _myTBV.delegate = self;
+    
+    _myTBV.dataSource = self;
+    
+    [self getTodayStepCount];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTodayStepCount) name:UIApplicationWillEnterForegroundNotification object:nil];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
+    
+}
+
+#pragma mark - 通知
+
+- (void)getTodayStepCount {
+ 
+    _storeManager  = [HealthStoreManager shareHealthStoreManager];
+    
+    [_storeManager getTodayStepsFromPhoneSetCurrentDevice:nil completionHandle:^(double HealthStepCount, NSError *error) {
+       
+        _todaySteps = (NSInteger)HealthStepCount;
+        
+    }];
+    
+    [_myTBV reloadData];
+    
+}
+
+
+
+#pragma mark - tableview delegate  and datasource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 4;
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static  NSString *cell_string = @"cell_1";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cell_string];
+    
+    if (!cell) {
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell_string];
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%ld", _todaySteps];
+        
+    }
+    
+    return cell;
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 60;
+    
+}
+
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     
 }
 

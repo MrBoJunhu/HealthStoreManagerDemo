@@ -17,9 +17,28 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    [self configurationApp];
+    
     return YES;
 }
 
+- (void)configurationApp {
+ 
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    
+    // 设置导航栏字体颜色和tabbar字体颜色
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     @{
+       NSForegroundColorAttributeName:[UIColor whiteColor],
+       NSFontAttributeName:[UIFont boldSystemFontOfSize:18.0f]
+       }];
+
+    
+    [[UITabBar appearance] setTintColor:[UIColor redColor]];
+
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
    

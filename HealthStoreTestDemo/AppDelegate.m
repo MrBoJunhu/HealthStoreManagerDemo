@@ -56,6 +56,8 @@
    
     [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification object:nil];
     
+    DebugLog(@"将要进入前台");
+    
 }
 
 

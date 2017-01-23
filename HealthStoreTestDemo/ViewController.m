@@ -28,8 +28,6 @@
     
     _myTBV.dataSource = self;
     
-    [self getTodayStepCount];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTodayStepCount) name:UIApplicationWillEnterForegroundNotification object:nil];
 
 }
@@ -37,6 +35,15 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
+   
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+    [self getTodayStepCount];
+
     
 }
 
@@ -47,12 +54,21 @@
     _storeManager  = [HealthStoreManager shareHealthStoreManager];
     
     [_storeManager getTodayStepsFromPhoneSetCurrentDevice:nil completionHandle:^(double HealthStepCount, NSError *error) {
-       
-        _todaySteps = (NSInteger)HealthStepCount;
+        
+        if (HealthStepCount) {
+            
+            _todaySteps = (NSInteger)HealthStepCount;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [_myTBV reloadData];
+                
+            });
+            
+        }
         
     }];
     
-    [_myTBV reloadData];
     
 }
 
@@ -82,10 +98,10 @@
         
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cell_string];
         
-        cell.textLabel.text = [NSString stringWithFormat:@"%ld", _todaySteps];
-        
     }
-    
+
+    cell.textLabel.text = [NSString stringWithFormat:@"%ld", _todaySteps];
+
     return cell;
     
 }

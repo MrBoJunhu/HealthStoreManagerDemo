@@ -247,9 +247,10 @@
                         
                         double todatyStepCount = [statistic.sumQuantity doubleValueForUnit:unit];
                         
+                        DebugLog(@"❤❤❤❤❤❤❤❤❤ 今日步数 %d 步 ❤❤❤❤❤❤❤❤❤", (int)todatyStepCount);
+                       
                         completion(todatyStepCount, nil);
-                        
-                        DebugLog(@"❤❤❤❤❤❤❤❤❤  %d  ❤❤❤❤❤❤❤❤❤", (int)todatyStepCount);
+
                         
                     }
                     

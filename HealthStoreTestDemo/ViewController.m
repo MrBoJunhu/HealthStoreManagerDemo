@@ -55,17 +55,13 @@
     
     [_storeManager getTodayStepsFromPhoneSetCurrentDevice:nil completionHandle:^(double HealthStepCount, NSError *error) {
         
-        if (HealthStepCount) {
+        _todaySteps = (NSInteger)HealthStepCount;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
             
-            _todaySteps = (NSInteger)HealthStepCount;
+            [_myTBV reloadData];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [_myTBV reloadData];
-                
-            });
-            
-        }
+        });
         
     }];
     

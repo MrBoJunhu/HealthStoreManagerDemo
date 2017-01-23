@@ -7,7 +7,7 @@
 //
 
 #import "HealthStoreManager.h"
-
+#import <CoreMotion/CoreMotion.h>
 @interface HealthStoreManager()
 
 @property (nonatomic, strong) HKHealthStore * healthStore;
@@ -33,9 +33,10 @@
 }
 
 
-- (void)authorizeHealthKit:(CompletionHandle)completionHandle {
 
-    if (IOS_systemVersion >= 8.0) {
+- (void)authorizeHealthKit:(CompletionHandle)completionHandle {
+    
+    if ([CMPedometer isStepCountingAvailable]) {
         
         //当前设备有计步功能
         if ([HKHealthStore isHealthDataAvailable]) {
@@ -65,12 +66,17 @@
             
             completionHandle(NO,error);
             
+            [self showErrorViewSupportStep:YES];
+            
         }
         
     }else{
         
 #pragma mark - 当前设备没有计步功能
         [self showErrorViewSupportStep:NO];
+        
+        completionHandle(NO,nil);
+        
         
     }
     
@@ -80,7 +86,7 @@
 
 /**
  需要获取健康的权限类型
-
+ 
  @return 权限集合
  */
 -(NSSet *)healthStoreDataType{
@@ -98,7 +104,7 @@
     @weakify(self);
     
     [self authorizeHealthKit:^(BOOL success, NSError *error) {
-       
+        
         if (success) {
             
             HKQuantityType *stepQuantityType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
@@ -141,13 +147,13 @@
         
     }];
     
-   
+    
     
 }
 
 
 - (NSPredicate *)predicateForSamplesToday {
-
+    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
     NSDate *now = [NSDate date];
@@ -167,7 +173,7 @@
     NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionNone];
     
     return predicate;
-
+    
 }
 
 
@@ -197,13 +203,15 @@
                 
                 if (result.statistics.count > 0) {
                     
+                    
                 }else{
                     
                     [weakself showErrorViewSupportStep:YES];
                     
-                    return ;
+                    completion(0,error);
+                    //                    return ;
+                    
                 }
-                
                 
                 for (HKStatistics *statistic in result.statistics) {
                     
@@ -247,10 +255,9 @@
                         
                         double todatyStepCount = [statistic.sumQuantity doubleValueForUnit:unit];
                         
-                        DebugLog(@"❤❤❤❤❤❤❤❤❤ 今日步数 %d 步 ❤❤❤❤❤❤❤❤❤", (int)todatyStepCount);
-                       
                         completion(todatyStepCount, nil);
-
+                        
+                        DebugLog(@"❤❤❤❤❤❤❤❤❤  %d  ❤❤❤❤❤❤❤❤❤", (int)todatyStepCount);
                         
                     }
                     
@@ -259,9 +266,12 @@
             
             [_healthStore executeQuery:collectionQuery];
             
+            
         }else{
             
-            [weakself showErrorViewSupportStep:NO];
+            DebugLog(@"%@", error.description);
+            
+            completion(0,nil);
             
         }
         
@@ -279,11 +289,11 @@
     
     if (supportBool) {
         
-        remindMessage = @"请在「设置」>「隐私」>「健康」中,确保「莱聚+」的步数功能已开启或者「健康」中的今日步数已更新，否则将无法读取步数";
+        remindMessage = @"请在「设置」>「隐私」>「健康」中,确保APP的步数功能已开启或者「健康」中今日步数已更新，否则将无法读取步数";
         
     }else{
         
-        remindMessage = @"Duang~ 您手机型号不支持记步, 莱聚+无法提供计步数据哦...";
+        remindMessage = @"Duang~ 您的手机型号不支持记步, 莱聚+无法提供计步数据哦...";
         
     }
     
@@ -300,6 +310,7 @@
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertC animated:YES completion:nil];
     
 }
+
 
 
 

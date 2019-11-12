@@ -1,10 +1,3 @@
-//
-//  HealthStoreManager.h
-//  LaiApp_OC
-//
-//  Created by BillBo on 17/1/12.
-//  Copyright © 2017年 Softtek. All rights reserved.
-//  莱运动 （步数  考虑外来设备 手环手表等对步数的影响）
 
 #import <Foundation/Foundation.h>
 

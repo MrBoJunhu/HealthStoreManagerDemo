@@ -1,10 +1,4 @@
-//
-//  HealthStoreManager.m
-//  LaiApp_OC
-//
-//  Created by BillBo on 17/1/12.
-//  Copyright © 2017年 Softtek. All rights reserved.
-//
+
 
 #import "HealthStoreManager.h"
 #import <CoreMotion/CoreMotion.h>
